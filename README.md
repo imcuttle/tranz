@@ -27,6 +27,7 @@ import tranz from 'tranz'
 - [ ] file write [cli]
 - [ ] file glob [cli]
 - [ ] ignore files [cli]
+- [ ] support browser side
 
 ## Related
 
