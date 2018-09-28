@@ -1,0 +1,18 @@
+{
+  "name": "local-path",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {},
+  "tranz": {
+    "processors": [
+      [
+        "../processor-wrapper",
+        {
+          "char": "abc"
+        }
+      ],
+      "../processor-upper"
+    ],
+    "parallel": false
+  }
+}
