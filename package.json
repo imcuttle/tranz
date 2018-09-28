@@ -8,7 +8,6 @@
     "lib",
     "src"
   ],
-  "bin": "bin.js",
   "scripts": {
     "test": "jest",
     "build": "rimraf lib && tsc",
