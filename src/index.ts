@@ -56,7 +56,7 @@ export default async function tranz(input: any, processors: Processor[] = [], op
   fillWhenUndefined(opts, { parallel: false })
 
   let run = (input, processor) => {
-    return runProcessor(input, processor, { cwd: processorCwd })
+    return runProcessor(input, processor, { ...opts, cwd: processorCwd })
   }
 
   let runner
@@ -76,7 +76,7 @@ export default async function tranz(input: any, processors: Processor[] = [], op
             'Expected `processor` to be of type `string | [string, any]`, got `Function` or `Function[]` when parallel is enabled'
           )
         }
-        return pify(runner)(stringify([input, processor, processorCwd])).then(string => parse(string))
+        return pify(runner)(stringify([input, processor, processorCwd, opts])).then(string => parse(string))
       }
     }
 

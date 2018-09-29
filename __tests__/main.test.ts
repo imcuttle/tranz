@@ -160,6 +160,36 @@ describe('tranz', function() {
       "Error occurs when process: run command '/bin/sh -c echo $(cat)$PWD; exit 1' with exit code: 1"
     )
   })
+
+  it('should this equals options', async function() {
+    const opt = {
+      hh: 'ok',
+      test: 'ww',
+      parallel: false,
+      userc: true,
+      cwd: fixture('local-path/cwd')
+    }
+    const rlt = await tranz('', [require('./fixture/processor-this')()], opt as any)
+
+    expect(rlt).toEqual([opt])
+  })
+
+  it('should this equals options when parallelly', async function() {
+    const opt = {
+      hh: 'ok',
+      test: 'ww',
+      parallel: true,
+      userc: true,
+      cwd: fixture('local-path/cwd')
+    }
+    const rlt = await tranzLib(
+      '',
+      [require.resolve('./fixture/processor-this'), require.resolve('./fixture/processor-this')],
+      opt as any
+    )
+
+    expect(rlt).toEqual([opt, opt])
+  })
 })
 
 describe('integration test', () => {

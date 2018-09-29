@@ -19,7 +19,7 @@ export default async function runProcessor(input, processor: Processor, options?
   }
 
   try {
-    return await reduce(processorArray, (input, runner) => runner(input), input)
+    return await reduce(processorArray, (input, runner) => runner.call(options, input), input)
   } catch (e) {
     const processorId = processor.id
     throw new VError(

@@ -10,8 +10,8 @@ import runProcessor from './runProcessor'
 
 module.exports = async function(parseAbleString: string, callback) {
   try {
-    const [input, processor, cwd] = parse(parseAbleString)
-    const output = await runProcessor(input, processor, { cwd })
+    const [input, processor, cwd, opts] = parse(parseAbleString)
+    const output = await runProcessor(input, processor, { ...opts, cwd })
     callback(null, stringify(output))
   } catch (e) {
     callback(e)
