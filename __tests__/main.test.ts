@@ -121,12 +121,28 @@ describe('tranz', function() {
     expect(rlt).toEqual({ i: 1 })
   })
 
-  it('parallel works well transform with shell script', async function() {
-    let rlt = await tranzLib('123', ['echo $(cat)$PWD', 'echo $(cat)$? ok'], {
+  it('parallel works well transform with shell script and func', async function() {
+    let rlt = await tranz('123', ['echo $(cat)$PWD', interop(require('./fixture/processor-upper'))()], {
       cwd: fixture('local-path/cwd'),
+      parallel: false
+    })
+    expect(rlt).toEqual(fixture('local-path/cwd').toUpperCase())
+  })
+
+  it('parallel works well transform with shell script and func in parallel mode', async function() {
+    let rlt = await tranzLib('123', ['echo $(cat)$PWD', './fixture/processor-upper'], {
+      cwd: __dirname,
       parallel: true
     })
-    expect(rlt).toEqual('123' + fixture('local-path/cwd') + '0 ok')
+    expect(rlt).toEqual(__dirname.toUpperCase())
+  })
+
+  it('parallel works well transform with multi-shell script', async function() {
+    let rlt = await tranz('123', ['echo $(/bin/cat)$PWD', './fixture/processor-upper', 'echo $(/bin/cat)-lala'], {
+      cwd: __dirname,
+      parallel: false
+    })
+    expect(rlt).toEqual('123' + __dirname.toUpperCase() + '-lala')
   })
 
   it('parallel works well transform with shell script error', async function() {
