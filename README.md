@@ -20,6 +20,8 @@ yarn add tranz
 
 ### Package
 
+#### `tranz(input: any, processors: Array<Function | [string, any] | string>, options?): Promise<any>`
+
 - `index.js`
 
 ```javascript
@@ -40,14 +42,17 @@ tranz(
   ],
   {
     // Resolve processor path's base dir
+    // Default: $PWD
     cwd: join(__dirname, 'lib'),
     // Whether run tranz parallelly
     // Note: parallel mode could enabled when all of the processor is typeof `string` (serializable)
+    // Default: false
     parallel: false,
     // Search runtime configuration.
     // e.g. 1. `tranz` field in `package.json`
     //      2. file named `.tranzrc`
     //      3. file named `.tranzrc.js`
+    // Default: true
     userc: true
   }
 ).then(output => {
@@ -78,6 +83,28 @@ npx tranz -h
 
 tranz -i $PWD -p ./upper
 cat $PWD | tranz -p ./upper
+```
+
+### RC Config
+
+- `package.json`
+
+```json
+{
+  "tranz": {
+    "processors": [
+      [
+        "../processor-wrapper",
+        {
+          "char": "abc"
+        }
+      ],
+      "../processor-upper",
+      "module-p-fix?q=halala"
+    ],
+    "parallel": false
+  }
+}
 ```
 
 ## Tests
