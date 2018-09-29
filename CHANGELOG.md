@@ -1,3 +1,11 @@
+<a name="0.4.0"></a>
+
+# [0.4.0](https://github.com/imcuttle/tranz/compare/v0.3.0...v0.4.0) (2018-09-29)
+
+### Features
+
+- **cli:** support file system ([d6ff87c](https://github.com/imcuttle/tranz/commit/d6ff87c))
+
 <a name="0.3.0"></a>
 
 # [0.3.0](https://github.com/imcuttle/tranz/compare/v0.2.2...v0.3.0) (2018-09-29)
