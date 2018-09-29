@@ -126,7 +126,7 @@ describe('tranz', function() {
       cwd: fixture('local-path/cwd'),
       parallel: false
     })
-    expect(rlt).toEqual(fixture('local-path/cwd').toUpperCase())
+    expect(rlt).toEqual('123' + fixture('local-path/cwd').toUpperCase())
   })
 
   it('parallel works well transform with shell script and func in parallel mode', async function() {
@@ -134,7 +134,7 @@ describe('tranz', function() {
       cwd: __dirname,
       parallel: true
     })
-    expect(rlt).toEqual(__dirname.toUpperCase())
+    expect(rlt).toEqual('123' + __dirname.toUpperCase())
   })
 
   it('parallel works well transform with multi-shell script', async function() {
