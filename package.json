@@ -16,9 +16,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
     "benchmark": "node __perf__",
-    "precommit": "pretty-quick --staged",
     "version": "npm run changelog",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "sideEffects": false,
@@ -84,5 +82,11 @@
     "quote-it": "^1.0.1",
     "resolve-from": "^4.0.0",
     "verror": "^1.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
