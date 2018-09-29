@@ -38,7 +38,11 @@ tranz(
     // [moduleId: string, options: any]
     ['./wrapper', { c: '_' }],
     // module name with query string
-    './wrapper?c=$'
+    './wrapper?c=$',
+    // shell script
+    // get input from stdin
+    // output from stdout
+    'echo $(cat)-abc'
   ],
   {
     // Resolve processor path's base dir
@@ -60,7 +64,7 @@ tranz(
 })
 
 // Output:
-// $_10-abc-01_$
+// $_10-abc-01_$-abc
 ```
 
 - `lib/wrapper.js`

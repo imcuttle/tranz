@@ -15,7 +15,7 @@ import { dirname } from 'path'
 import runProcessor from './runProcessor'
 import fillWhenUndefined from './fillWhenUndefined'
 
-export type ProcessFunction = Function & { id: string }
+export type ProcessFunction = Function & { id?: string }
 export type ProcessFunctions = { id: string } & Function[]
 
 export type ProcessorCore = ProcessFunction | ProcessFunctions
@@ -60,33 +60,39 @@ export default async function tranz(input: any, processors: Processor[] = [], op
   }
 
   let runner
-  if (opts.parallel) {
-    runner = farm(require.resolve('./child'))
-    run = (input, processor) => {
-      if (
-        typeof processor === 'function' ||
-        (Array.isArray(processor) && processor.some(x => typeof x === 'function'))
-      ) {
-        throw new VError(
-          {
-            name: 'TranzError'
-          },
-          'Expected `processor` to be of type `string | [string, any]`, got `Function` or `Function[]` when parallel is enabled'
-        )
+  let output
+  try {
+    if (opts.parallel) {
+      runner = farm(require.resolve('./child'))
+      run = (input, processor) => {
+        if (
+          typeof processor === 'function' ||
+          (Array.isArray(processor) && processor.some(x => typeof x === 'function'))
+        ) {
+          throw new VError(
+            {
+              name: 'TranzError'
+            },
+            'Expected `processor` to be of type `string | [string, any]`, got `Function` or `Function[]` when parallel is enabled'
+          )
+        }
+        return pify(runner)(stringify([input, processor, processorCwd])).then(string => parse(string))
       }
-      return pify(runner)(stringify([input, processor, processorCwd])).then(string => parse(string))
     }
-  }
 
-  const output = await reduce(
-    processors,
-    async function(input, processor) {
-      return await run(input, processor)
-    },
-    input
-  )
-  if (opts.parallel) {
-    farm.end(runner)
+    output = await reduce(
+      processors,
+      async function(input, processor) {
+        return await run(input, processor)
+      },
+      input
+    )
+  } catch (e) {
+    throw e
+  } finally {
+    if (opts.parallel && runner) {
+      farm.end(runner)
+    }
   }
   return output
 }

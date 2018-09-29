@@ -120,6 +120,30 @@ describe('tranz', function() {
     })
     expect(rlt).toEqual({ i: 1 })
   })
+
+  it('parallel works well transform with shell script', async function() {
+    let rlt = await tranzLib('123', ['echo $(cat)$PWD', 'echo $(cat)$? ok'], {
+      cwd: fixture('local-path/cwd'),
+      parallel: true
+    })
+    expect(rlt).toEqual('123' + fixture('local-path/cwd') + '0 ok')
+  })
+
+  it('parallel works well transform with shell script error', async function() {
+    let error
+    try {
+      let rlt = await tranzLib('123', ['echo $(cat)$PWD; exit 1', 'echo $(cat) ok'], {
+        cwd: fixture('local-path/cwd'),
+        parallel: true
+      })
+    } catch (e) {
+      error = e
+    }
+
+    expect(String(error.message)).toContain(
+      "Error occurs when process: run command '/bin/sh -c echo $(cat)$PWD; exit 1' with exit code: 1"
+    )
+  })
 })
 
 describe('integration test', () => {
