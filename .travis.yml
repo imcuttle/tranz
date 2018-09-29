@@ -12,8 +12,8 @@ cache:
     - node_modules
 
 install:
-  - npm run build
   - npm install
+  - npm run build
 
 before_script:
   - npm install codecov --no-save
