@@ -5,6 +5,9 @@
  */
 const nps = require('path')
 const cli = require('gentle-cli')
+const execa = require('execa')
+const fs = require('fs')
+const { tmpdir } = require('os')
 
 const binPath = require.resolve('../bin')
 const fixture = (name = '') => nps.join(__dirname, 'fixture', name)
@@ -64,6 +67,30 @@ describe('tranz bin', function() {
         return done(err)
       }
       expect(text).toMatchInlineSnapshot(`"foo"`)
+      done()
+    })
+  })
+
+  it('--write', function(done) {
+    const textPath = nps.join(tmpdir(), 'text.txt')
+    fs.writeFileSync(textPath, 'foo')
+    cmd(`${textPath} --userc --write`, { cwd: fixture('local-path/cwd') }).end(function(err, { text }) {
+      if (err) {
+        return done(err)
+      }
+      expect(fs.readFileSync(textPath).toString()).toBe('ABCFOOABC')
+      done()
+    })
+  })
+
+  it('--to', function(done) {
+    const textPath = nps.join(tmpdir(), 'text.txt')
+    fs.writeFileSync(textPath, 'foo')
+    cmd(`${textPath} --userc --to ./text.txt`, { cwd: fixture('local-path/cwd') }).end(function(err, { text }) {
+      if (err) {
+        return done(err)
+      }
+      expect(fs.readFileSync(fixture('local-path/cwd/text.txt')).toString()).toBe('ABCFOOABC')
       done()
     })
   })

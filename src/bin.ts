@@ -6,7 +6,7 @@
 import minimost from './minimost'
 import tranz from './'
 import * as concat from 'concat-stream'
-import { throws } from 'assert'
+import * as fs from 'fs'
 
 const pkg = require('../package')
 
@@ -16,19 +16,30 @@ const arg = minimost(process.argv.slice(2), {
     v: 'version',
     p: 'processors',
     i: 'input',
+    w: 'write',
     processor: 'processors'
   },
   default: {
     userc: true
   },
-  boolean: ['help', 'userc', 'parallel']
+  boolean: ['help', 'userc', 'parallel', 'write']
 }) as any
 
-function run(input, processors, opts) {
+function run(input, processors, opts, from?) {
   input = String(input)
   return tranz(input, processors, opts)
     .then(output => {
       output = String(output)
+
+      console.log(arg.flags.write, from)
+      if (arg.flags.write && from) {
+        return fs.writeFileSync(from, output)
+      }
+
+      if (arg.flags.to) {
+        return fs.writeFileSync(arg.flags.to, output)
+      }
+
       process.stdout.write(output)
     })
     .catch(error => {
@@ -37,14 +48,14 @@ function run(input, processors, opts) {
     })
 }
 
-// console.log(arg)
+console.log(arg)
 ;(function() {
   if (arg.flags.help) {
     console.log(`  ${pkg.name} ${pkg.version}: ${pkg.description}
   
   Usage
   
-    ${pkg.name} [options]
+    ${pkg.name} [file] [options]
     
   Options
   
@@ -54,6 +65,8 @@ function run(input, processors, opts) {
     -i, --input         Set input (e.g. \`-i $PWD\`)
     --no-userc          Disable runtime configuration
     --parallel          Run processor parallelly
+    -w, --write         Overwrite file by transformed string
+    --to                Write file to where
   
   Examples
     
@@ -73,7 +86,20 @@ function run(input, processors, opts) {
       : [arg.flags.processors]
     : void 0
 
-  if (typeof arg.flags.input !== 'undefined') {
+  if (arg.input && arg.input.length) {
+    arg.input.forEach(function(filename) {
+      const input = fs.readFileSync(filename).toString()
+      run(
+        input,
+        processors,
+        {
+          userc: arg.flags.userc,
+          parallel: arg.flags.parallel
+        },
+        filename
+      )
+    })
+  } else if (typeof arg.flags.input !== 'undefined') {
     run(arg.flags.input, processors, {
       userc: arg.flags.userc,
       parallel: arg.flags.parallel
