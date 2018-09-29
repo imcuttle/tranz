@@ -5,6 +5,7 @@
  */
 import tranz from '../src'
 import tranzLib from '../lib'
+import interop from 'module-interop'
 import fillWhenUndefined from '../src/fillWhenUndefined'
 import * as nps from 'path'
 
@@ -19,8 +20,8 @@ describe('tranz', function() {
 
   it('tranz-spec', async function() {
     const output = await tranz('heihei', [
-      require('./fixture/processor-wrapper')({ char: '`' }),
-      require('./fixture/processor-upper')()
+      interop(require('./fixture/processor-wrapper'))({ char: '`' }),
+      interop(require('./fixture/processor-upper'))()
     ])
 
     expect(output).toBe('`HEIHEI`')
@@ -92,7 +93,7 @@ describe('tranz', function() {
   it('parallel throw error', async function() {
     let error
     try {
-      let rlt = await tranzLib('heihei', [require('./fixture/processor-upper')()], {
+      let rlt = await tranzLib('heihei', [interop(require('./fixture/processor-upper'))()], {
         cwd: __dirname,
         parallel: true
       })

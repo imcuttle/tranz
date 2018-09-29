@@ -5,4 +5,8 @@
  *
  */
 
-module.exports = () => [obj => obj || {}, obj => ((obj.i = obj.i || 0), obj), obj => (obj.i++, obj)]
+module.exports = () => [
+  obj => obj || {},
+  obj => ((obj.i = obj.i || 0), Promise.resolve(obj)),
+  obj => (obj.i++, Promise.resolve(obj))
+]

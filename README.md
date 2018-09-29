@@ -18,8 +18,66 @@ yarn add tranz
 
 ## Usage
 
+### Package
+
+- `index.js`
+
 ```javascript
+import { join } from 'path'
 import tranz from 'tranz'
+
+tranz(
+  'abc',
+  [
+    // function
+    require('./lib/wrapper')({ c: '-' }),
+    // return function's array
+    require('./lib/multi-wrapper')({ c: 0 }),
+    // [moduleId: string, options: any]
+    ['./wrapper', { c: '_' }],
+    // module name with query string
+    './wrapper?c=$'
+  ],
+  {
+    // Resolve processor path's base dir
+    cwd: join(__dirname, 'lib'),
+    // Whether run tranz parallelly
+    // Note: parallel mode could enabled when all of the processor is typeof `string` (serializable)
+    parallel: false,
+    // Search runtime configuration.
+    // e.g. 1. `tranz` field in `package.json`
+    //      2. file named `.tranzrc`
+    //      3. file named `.tranzrc.js`
+    userc: true
+  }
+).then(output => {
+  console.log(output)
+})
+
+// Output:
+// $_10-abc-01_$
+```
+
+- `lib/wrapper.js`
+
+```javascript
+module.exports = ({ c }) => input => `${c}${input}${c}`
+```
+
+- `lib/multi-wrapper.js`
+
+```javascript
+module.exports = ({ c }) => [input => `${c}${input}${c}`, input => Promise.resolve(`${c + 1}${input}${c + 1}`)]
+```
+
+### CLI
+
+```
+npm i tranz -D
+npx tranz -h
+
+tranz -i $PWD -p ./upper
+cat $PWD | tranz -p ./upper
 ```
 
 ## Tests
@@ -38,9 +96,9 @@ npm run benchmark
 
 ## Roadmap
 
-- [ ] file write [cli]
-- [ ] file glob [cli]
-- [ ] ignore files [cli]
+- [ ] file write [tranz-globs]
+- [ ] file glob [tranz-globs]
+- [ ] ignore files [tranz-globs]
 - [ ] ~support browser side~ (Cancelled: because of `parallel` hasn't suitable way)
 
 ## Related

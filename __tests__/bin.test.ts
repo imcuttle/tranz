@@ -22,27 +22,28 @@ describe('tranz bin', function() {
   })
 
   it('spec json', function(done) {
-    cmd(`-i ${JSON.stringify({ foo: 'bar' })} -p ./fixture/processor-to-json -p ./fixture/processor-object`).end(
-      function(err, { text }) {
-        if (err) {
-          return done(err)
-        }
-        expect(text).toEqual('[object Object]')
-        done()
+    cmd(`-i ${JSON.stringify({ foo: 'bar' })} -p _json-parse -p ./fixture/processor-object`).end(function(
+      err,
+      { text }
+    ) {
+      if (err) {
+        return done(err)
       }
-    )
+      expect(text).toEqual('[object Object]')
+      done()
+    })
   })
 
   it('spec in-format: json, out-format: json', function(done) {
     cmd(
       `-i ${JSON.stringify({
         foo: 'bar'
-      })} -p ./fixture/processor-to-json -p ./fixture/processor-object -p ./fixture/processor-json-stringify`
+      })} -p _json-parse -p ./fixture/processor-object -p _json-stringify?{"space":2}`
     ).end(function(err, { text }) {
       if (err) {
         return done(err)
       }
-      expect(JSON.parse(text)).toEqual({ foo: 'bar', i: 1 })
+      expect(text).toEqual(JSON.stringify({ foo: 'bar', i: 1 }, null, 2))
       done()
     })
   })

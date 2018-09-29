@@ -5,7 +5,8 @@
  *
  */
 
-module.exports = () =>
+module.exports.__esModule = true
+module.exports.default = () =>
   function(input) {
     return input.toUpperCase()
   }

@@ -39,31 +39,28 @@ function run(input, processors, opts) {
 
 // console.log(arg)
 ;(function() {
-  if (arg.help) {
-    return console.log(`
+  if (arg.flags.help) {
+    console.log(`  ${pkg.name} ${pkg.version}: ${pkg.description}
+  
+  Usage
+  
+    ${pkg.name} [options]
     
-    ${pkg.name} ${pkg.version}
+  Options
+  
+    -h, --help          More help
+    -v                  Version
+    -p, --processor     Set processor (e.g. \`-p ./trans -p upper\`)
+    -i, --input         Set input (e.g. \`-i $PWD\`)
+    --no-userc          Disable runtime configuration
+    --parallel          Run processor parallelly
+  
+  Examples
     
-    ${pkg.description}
-    
-    Usage
-    
-      ${pkg.name} [options]
-      
-    Options
-    
-      -h, --help          More help
-      -v                  Version
-      -p, --processor     Set processor (e.g. \`-p ./trans -p upper\`)
-      -i, --input         Set input (e.g. \`-i $PWD\`)
-      --no-userc          Disable runtime configuration
-      --parallel          Run processor parallelly
-    
-    Examples
-      
-      ${pkg.name} -i $PWD -p ./upper
-      cat $PWD | ${pkg.name} -p ./upper
+    ${pkg.name} -i $PWD -p ./upper
+    cat $PWD | ${pkg.name} -p ./upper
   `)
+    return
   }
 
   if (arg.flags.version) {

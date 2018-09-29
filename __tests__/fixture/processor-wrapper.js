@@ -5,7 +5,8 @@
  *
  */
 
-module.exports = ({ char = '' } = {}) => [
+module.exports.__esModule = true
+module.exports.default = ({ char = '' } = {}) => [
   function(input) {
     return `${char}${input}${char}`
   }
