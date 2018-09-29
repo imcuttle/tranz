@@ -24,6 +24,7 @@ export default function(argv: string[], options?) {
     )
   )
 
+  // console.log(parsed)
   const input = parsed._
   delete parsed._
 

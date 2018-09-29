@@ -22,12 +22,26 @@ yarn add tranz
 import tranz from 'tranz'
 ```
 
+## Tests
+
+### Unit
+
+```bash
+npm test
+```
+
+### Benchmark
+
+```bash
+npm run benchmark
+```
+
 ## Roadmap
 
 - [ ] file write [cli]
 - [ ] file glob [cli]
 - [ ] ignore files [cli]
-- [ ] support browser side
+- [ ] ~support browser side~ (Cancelled: because of `parallel` hasn't suitable way)
 
 ## Related
 

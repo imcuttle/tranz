@@ -8,11 +8,14 @@
     "lib",
     "src"
   ],
+  "bin": "./bin.js",
   "scripts": {
     "test": "jest",
     "build": "rimraf lib && tsc",
     "dev": "npm run build -- -w",
+    "prepare": "npm run build",
     "prepublishOnly": "npm test",
+    "benchmark": "node __perf__",
     "precommit": "pretty-quick --staged",
     "version": "npm run changelog",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -26,7 +29,7 @@
     "imcuttle",
     "tranz"
   ],
-  "typings": "dist/index.d.ts",
+  "typings": "lib/index.d.ts",
   "license": "MIT",
   "repository": "imcuttle/tranz",
   "jest": {
@@ -56,7 +59,9 @@
     "@commitlint/config-conventional": "^7.1.2",
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.2",
+    "benchmark": "^2.1.4",
     "conventional-changelog-cli": "^2.0.5",
+    "gentle-cli": "^1.0.3",
     "husky": "^1.0.1",
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
@@ -67,6 +72,7 @@
   },
   "dependencies": {
     "@moyuyc/worker-farm": "^1.6.0",
+    "concat-stream": "^1.6.2",
     "cosmiconfig": "^5.0.6",
     "json-buffer": "^3.0.1",
     "loader-utils": "^1.1.0",

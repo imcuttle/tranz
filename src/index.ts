@@ -12,7 +12,6 @@ import { single, default as quote } from 'quote-it'
 import { stringify, parse } from 'json-buffer'
 import { dirname } from 'path'
 
-import normalizeProcessor from './normalizeProcessor'
 import runProcessor from './runProcessor'
 import fillWhenUndefined from './fillWhenUndefined'
 
@@ -29,6 +28,7 @@ export type Options = ComOptions & {
   cwd?: string
   userc?: boolean
 }
+
 export type RCOptions = ComOptions & {
   processors: Processor[]
 }
