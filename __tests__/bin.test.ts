@@ -15,7 +15,7 @@ const fixture = (name = '') => nps.join(__dirname, 'fixture', name)
 const cmd = (cmd, opt?) => cli({ cwd: __dirname, ...opt }).use(`${binPath} ${cmd}`)
 describe('tranz bin', function() {
   it('spec', function(done) {
-    cmd('-i abc abc -p ./fixture/processor-upper -p ./fixture/processor-wrapper?char=222').end(function(err, { text }) {
+    cmd('-i abc -p ./fixture/processor-upper -p ./fixture/processor-wrapper?char=222').end(function(err, { text }) {
       if (err) {
         return done(err)
       }

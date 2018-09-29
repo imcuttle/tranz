@@ -31,7 +31,6 @@ function run(input, processors, opts, from?) {
     .then(output => {
       output = String(output)
 
-      console.log(arg.flags.write, from)
       if (arg.flags.write && from) {
         return fs.writeFileSync(from, output)
       }
@@ -48,7 +47,7 @@ function run(input, processors, opts, from?) {
     })
 }
 
-console.log(arg)
+// console.log(arg)
 ;(function() {
   if (arg.flags.help) {
     console.log(`  ${pkg.name} ${pkg.version}: ${pkg.description}
