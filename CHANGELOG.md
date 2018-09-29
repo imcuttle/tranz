@@ -1,3 +1,11 @@
+<a name="0.3.0"></a>
+
+# [0.3.0](https://github.com/imcuttle/tranz/compare/v0.2.2...v0.3.0) (2018-09-29)
+
+### Features
+
+- support shell script as processor ([e10657d](https://github.com/imcuttle/tranz/commit/e10657d))
+
 <a name="0.2.2"></a>
 
 ## [0.2.2](https://github.com/imcuttle/tranz/compare/v0.2.1...v0.2.2) (2018-09-29)
