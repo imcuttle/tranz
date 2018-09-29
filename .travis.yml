@@ -12,6 +12,7 @@ cache:
     - node_modules
 
 install:
+  - npm run build
   - npm install
 
 before_script:
