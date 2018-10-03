@@ -19,3 +19,4 @@ before_script:
   - npm install codecov --no-save
 script:
   - npm test -- --coverage
+after_script: codecov --token=$CODECOV_TOKEN

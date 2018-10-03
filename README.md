@@ -1,6 +1,7 @@
 # tranz
 
 [![Build status](https://img.shields.io/travis/imcuttle/tranz/master.svg?style=flat-square)](https://travis-ci.org/imcuttle/tranz)
+[![Test coverage](https://img.shields.io/codecov/c/github/imcuttle/tranz.svg?style=flat-square)](https://codecov.io/github/imcuttle/tranz?branch=master)
 [![NPM version](https://img.shields.io/npm/v/tranz.svg?style=flat-square)](https://www.npmjs.com/package/tranz)
 [![NPM Downloads](https://img.shields.io/npm/dm/tranz.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/tranz)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://prettier.io/)
