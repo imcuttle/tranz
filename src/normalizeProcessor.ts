@@ -21,6 +21,7 @@ const makeShell = (shellCommand: string, { cwd = process.cwd() }: Options = {}):
     try {
       return (await execa.shell(shellCommand, { cwd, input: value })).stdout
     } catch (rlt) {
+      /* istanbul ignore next */
       throw new Error(
         `run command ${single(rlt.cmd)} with exit code: ${rlt.code}` + (rlt.stderr ? `\n${rlt.stderr}` : '')
       )
@@ -52,7 +53,7 @@ export function resolveProcessor(
         throw presetErr
       }
     }
-    throw e
+    /* istanbul ignore next */ throw e
   }
 }
 

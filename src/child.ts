@@ -8,6 +8,7 @@
 import { stringify, parse } from 'json-buffer'
 import runProcessor from './runProcessor'
 
+/* istanbul ignore next: should be run in lib/child.js */
 module.exports = async function(parseAbleString: string, callback) {
   try {
     const [input, processor, cwd, opts] = parse(parseAbleString)

@@ -10,6 +10,7 @@ import * as fs from 'fs'
 
 const pkg = require('../package')
 
+/* istanbul ignore next: should be run in lib/bin.js */
 const arg = minimost(process.argv.slice(2), {
   alias: {
     h: 'help',

@@ -7,6 +7,7 @@
 import * as minimist from 'minimist'
 const { Opts } = minimist
 
+/* istanbul ignore next: forked from 3rd-party */
 const kebab2camel = (input: string) => {
   return input.replace(/([a-z])-([a-z])/g, (_, p1, p2) => {
     return p1 + p2.toUpperCase()

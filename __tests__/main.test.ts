@@ -136,10 +136,15 @@ describe('tranz', function() {
     expect(rlt).toEqual('ok ookk\n\nbranch: master')
   })
 
-  it('bulit-in processor', async function() {
+  it('bulit-in processor: _json-stringify', async function() {
     let rlt = await tranz({ key: 'foo' }, [['_json-stringify', { space: 2 }]])
     console.log(JSON.stringify({ key: 'foo' }, null, 2))
     expect(rlt).toBe(JSON.stringify({ key: 'foo' }, null, 2))
+  })
+
+  it('bulit-in processor: _json-parse', async function() {
+    let rlt = await tranz('null', ['_json-parse'])
+    expect(rlt).toBeNull()
   })
 
   it('parallel works well transform with shell script and func in parallel mode', async function() {
@@ -202,6 +207,30 @@ describe('tranz', function() {
     )
 
     expect(rlt).toEqual([opt, opt])
+  })
+
+  it('should thrown syntax-error', async function() {
+    let error
+    try {
+      const rlt = await tranz('', ['./fixture/processor-syntax-error'], {
+        cwd: __dirname
+      })
+    } catch (e) {
+      error = e
+    }
+    expect(error.name).toMatchInlineSnapshot(`"SyntaxError"`)
+  })
+
+  it('should thrown error when use bash script in array processor', async function() {
+    let error
+    try {
+      const rlt = await tranz('', [['echo 123', {}]], {
+        cwd: __dirname
+      })
+    } catch (e) {
+      error = e
+    }
+    expect(error).toMatchInlineSnapshot(`[Error: Cannot find module 'echo 123']`)
   })
 })
 

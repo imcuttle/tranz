@@ -38,6 +38,7 @@ export const explorer = cosconfig(require('../package.json').name)
 export default async function tranz(input: any, processors: Processor[] = [], opts: Options = {}): Promise<any> {
   opts = { userc: true, cwd: process.cwd(), ...opts }
   let processorCwd = opts.cwd
+
   if (opts.userc) {
     const { config, filepath, isEmpty } = (await explorer.search(processorCwd)) || ({} as any)
     if (!isEmpty && config) {
@@ -62,6 +63,7 @@ export default async function tranz(input: any, processors: Processor[] = [], op
   let runner
   let output
   try {
+    /* istanbul ignore if  */
     if (opts.parallel) {
       runner = farm(require.resolve('./child'))
       run = (input, processor) => {
@@ -90,6 +92,7 @@ export default async function tranz(input: any, processors: Processor[] = [], op
   } catch (e) {
     throw e
   } finally {
+    /* istanbul ignore if  */
     if (opts.parallel && runner) {
       farm.end(runner)
     }

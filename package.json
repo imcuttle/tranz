@@ -32,6 +32,11 @@
   "license": "MIT",
   "repository": "imcuttle/tranz",
   "jest": {
+    "coveragePathIgnorePatterns": [
+      "__tests__/.+",
+      "lib/.+",
+      "/.*\\.js$/"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.jsx?$": "babel-jest"
