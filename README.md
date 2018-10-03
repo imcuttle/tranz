@@ -24,10 +24,8 @@ The framework for transform anything
   ```json
   {
     "tranz": {
-      "processors": [
-        "echo '$(cat)\n\nbranch: $(git rev-parse --abbrev-ref HEAD)'"
-      ]
-    }
+      "processors": ["echo '$(cat)\n\nbranch: $(git rev-parse --abbrev-ref HEAD)'"]
+    },
     "husky": {
       "hooks": {
         "commit-msg": "npx tranz $HUSKY_GIT_PARAMS --write"
