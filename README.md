@@ -8,6 +8,35 @@
 
 The framework for transform anything
 
+## Feature
+
+- Allow running shell script as processor
+- Allow concurrent multi-processor for fast speed
+- Support runtime configuration
+
+## Where use it?
+
+- Transform git commit message for your self own processor.
+
+  Use it with [husky (Git hooks made easy)](https://github.com/typicode/husky)
+
+  ```json
+  {
+    "tranz": {
+      "processors": [
+        "echo '$(cat)\n\nbranch: $(git rev-parse --abbrev-ref HEAD)'"
+      ]
+    }
+    "husky": {
+      "hooks": {
+        "commit-msg": "npx tranz $HUSKY_GIT_PARAMS --write"
+      }
+    }
+  }
+  ```
+
+  Then the end of commit message would be appended with current branch name.
+
 ## Installation
 
 ```bash
@@ -109,6 +138,23 @@ cat $PWD | tranz -p ./upper
     "parallel": false
   }
 }
+```
+
+### Bulit-in Processor
+
+See [source code](src/presets)
+
+- \_json-parse - run `JSON.parse(input, reviver?)`
+- \_json-stringify - run `JSON.stringify(input, replacer?, space?)`
+
+#### Example
+
+```javascript
+tranz({ key: 'foo' }, [['_json-stringify', { space: 2 }]]).then(output => {
+  // {
+  //   "key": "foo"
+  // }
+})
 ```
 
 ## Tests

@@ -129,6 +129,19 @@ describe('tranz', function() {
     expect(rlt).toEqual('123' + fixture('local-path/cwd').toUpperCase())
   })
 
+  it('parallel works well transform with complex shell script', async function() {
+    let rlt = await tranz('ok ookk', ['echo "$(cat)\n\nbranch: master"'], {
+      parallel: false
+    })
+    expect(rlt).toEqual('ok ookk\n\nbranch: master')
+  })
+
+  it('bulit-in processor', async function() {
+    let rlt = await tranz({ key: 'foo' }, [['_json-stringify', { space: 2 }]])
+    console.log(JSON.stringify({ key: 'foo' }, null, 2))
+    expect(rlt).toBe(JSON.stringify({ key: 'foo' }, null, 2))
+  })
+
   it('parallel works well transform with shell script and func in parallel mode', async function() {
     let rlt = await tranzLib('123', ['echo $(cat)$PWD', './fixture/processor-upper'], {
       cwd: __dirname,
