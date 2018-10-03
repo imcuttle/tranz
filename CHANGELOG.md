@@ -1,3 +1,7 @@
+<a name="0.4.3"></a>
+
+## [0.4.3](https://github.com/imcuttle/tranz/compare/v0.4.2...v0.4.3) (2018-10-03)
+
 <a name="0.4.2"></a>
 
 ## [0.4.2](https://github.com/imcuttle/tranz/compare/v0.4.1...v0.4.2) (2018-09-29)
