@@ -175,7 +175,6 @@ npm run benchmark
 - [ ] file write [tranz-globs]
 - [ ] file glob [tranz-globs]
 - [ ] ignore files [tranz-globs]
-- [ ] ~support browser side~ (Cancelled: because of `parallel` hasn't suitable way)
 
 ## Related
 
