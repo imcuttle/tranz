@@ -1,3 +1,11 @@
+<a name="0.5.0"></a>
+
+# [0.5.0](https://github.com/imcuttle/tranz/compare/v0.4.3...v0.5.0) (2018-10-06)
+
+### Features
+
+- support processor inheritance ([348c007](https://github.com/imcuttle/tranz/commit/348c007))
+
 <a name="0.4.3"></a>
 
 ## [0.4.3](https://github.com/imcuttle/tranz/compare/v0.4.2...v0.4.3) (2018-10-03)
