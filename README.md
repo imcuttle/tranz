@@ -61,7 +61,7 @@ tranz(
   [
     // function
     require('./lib/wrapper')({ c: '-' }),
-    // return function's array
+    // return Processor[]
     require('./lib/multi-wrapper')({ c: 0 }),
     // [moduleId: string, options: any]
     ['./wrapper', { c: '_' }],
@@ -98,7 +98,15 @@ tranz(
 - `lib/wrapper.js`
 
 ```javascript
-module.exports = ({ c }) => input => `${c}${input}${c}`
+module.exports = ({ c }) =>
+  function(input) {
+    // this.cwd === __dirname
+    // this.parallel === false
+    // this.userc === true
+    // `this` is equals to options shallowly
+
+    return `${c}${input}${c}`
+  }
 ```
 
 - `lib/multi-wrapper.js`
@@ -154,6 +162,16 @@ tranz({ key: 'foo' }, [['_json-stringify', { space: 2 }]]).then(output => {
   //   "key": "foo"
   // }
 })
+```
+
+### Processor Inheritance
+
+```
+// This processor depends `./upper` and `./trimLeft` processor
+module.exports = (opts) => [
+  require('./upper')({}),
+  [require.resolve('./trimLeft'), {}],
+]
 ```
 
 ## Tests

@@ -232,6 +232,29 @@ describe('tranz', function() {
     }
     expect(error).toMatchInlineSnapshot(`[Error: Cannot find module 'echo 123']`)
   })
+
+  it('should processor-nested-processor.js', async function() {
+    const rlt = await tranz('', [[require.resolve('./fixture/processor-nested-processor'), { char: '?' }]], {
+      cwd: __dirname
+    })
+    expect(rlt).toBe('??')
+  })
+
+  it('should processor-nested-processors.js', async function() {
+    const rlt = await tranz('m', [[require.resolve('./fixture/processor-nested-processors'), { char: '?' }]], {
+      cwd: __dirname,
+      prefix: 'Head'
+    })
+    expect(rlt).toBe('Headqp?m?pq')
+  })
+
+  it('should processor-nested-processors-deep.js', async function() {
+    const rlt = await tranz('m', [[require.resolve('./fixture/processor-nested-processors-deep'), { char: '?' }]], {
+      cwd: __dirname,
+      prefix: 'Head'
+    })
+    expect(rlt).toBe('Headqp?m?pqundefined')
+  })
 })
 
 describe('integration test', () => {

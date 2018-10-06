@@ -23,7 +23,7 @@ export type ProcessorCore = ProcessFunction | ProcessFunctions
 export type Processor = string | ProcessorCore | [string, any]
 type ComOptions = {
   parallel?: boolean
-}
+} & any
 export type Options = ComOptions & {
   cwd?: string
   userc?: boolean
