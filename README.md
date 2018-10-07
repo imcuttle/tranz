@@ -166,13 +166,39 @@ tranz({ key: 'foo' }, [['_json-stringify', { space: 2 }]]).then(output => {
 
 ### Processor Inheritance
 
-```
+Write the processor as follow:
+
+```javascript
 // This processor depends `./upper` and `./trimLeft` processor
-module.exports = (opts) => [
-  require('./upper')({}),
-  [require.resolve('./trimLeft'), {}],
-]
+module.exports = opts => [require('./upper')({}), [require.resolve('./trimLeft'), {}]]
 ```
+
+### Multi-tranz config in rc config
+
+- `package.json`
+
+  ```json
+  {
+    "tranz": {
+      "foo": {
+        "processors": [
+          "echo foo"
+        ],
+        "parallel": true
+      }
+      "processors": [
+        "echo default"
+      ],
+      "parallel": false
+    }
+  }
+  ```
+
+- Run command in shell
+  ```bash
+  tranz --input="" # echo default
+  tranz --input="" --name="foo" # echo foo
+  ```
 
 ## Tests
 

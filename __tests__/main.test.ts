@@ -273,4 +273,14 @@ describe('integration test', () => {
   it('should node_modules-path inner cwd', async function() {
     expect(await tranz('nihao', [], { cwd: fixture('node_modules-path/cwd/cwd') })).toBe('halala')
   })
+
+  it('should multply-processors', async function() {
+    expect(await tranz('nihao', [], { cwd: fixture('multply-processors') })).toBe('halala')
+  })
+
+  it('should multply-processors with name', async function() {
+    expect(await tranz('nihao', [], { name: 'shell', parallel: false, cwd: fixture('multply-processors') })).toBe(
+      'shell!!'
+    )
+  })
 })

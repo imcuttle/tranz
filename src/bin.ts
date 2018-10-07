@@ -64,14 +64,19 @@ function run(input, processors, opts, from?) {
     -p, --processor     Set processor (e.g. \`-p ./trans -p upper\`)
     -i, --input         Set input (e.g. \`-i $PWD\`)
     --no-userc          Disable runtime configuration
+                        use \`--userc\` enable it
     --parallel          Run processor parallelly
+                        use \`--no-parallel\` disable it
     -w, --write         Overwrite file by transformed string
     --to                Write file to where
+    --name              Use which rc config
   
   Examples
     
     ${pkg.name} -i $PWD -p ./upper
     cat $PWD | ${pkg.name} -p ./upper
+    
+    See https://github.com/imcuttle/tranz for more information.
   `)
     return
   }
@@ -86,31 +91,22 @@ function run(input, processors, opts, from?) {
       : [arg.flags.processors]
     : void 0
 
+  const opts = {
+    userc: arg.flags.userc,
+    parallel: arg.flags.parallel,
+    name: arg.flags.name
+  }
   if (arg.input && arg.input.length) {
     arg.input.forEach(function(filename) {
       const input = fs.readFileSync(filename).toString()
-      run(
-        input,
-        processors,
-        {
-          userc: arg.flags.userc,
-          parallel: arg.flags.parallel
-        },
-        filename
-      )
+      run(input, processors, opts, filename)
     })
   } else if (typeof arg.flags.input !== 'undefined') {
-    run(arg.flags.input, processors, {
-      userc: arg.flags.userc,
-      parallel: arg.flags.parallel
-    })
+    run(arg.flags.input, processors, opts)
   } else {
     process.stdin.pipe(
       concat(function(string) {
-        run(String(string), processors, {
-          userc: arg.flags.userc,
-          parallel: arg.flags.parallel
-        })
+        run(String(string), processors, opts)
       })
     )
   }

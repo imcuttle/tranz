@@ -1,0 +1,26 @@
+{
+  "name": "local-path",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {},
+  "tranz": {
+    "shell": {
+      "processors": [
+        "echo shell!",
+        "echo shell!!"
+      ],
+      "parallel": true
+    },
+    "processors": [
+      [
+        "../processor-wrapper",
+        {
+          "char": "abc"
+        }
+      ],
+      "../processor-upper",
+      "module-p-fix?q=halala"
+    ],
+    "parallel": false
+  }
+}

@@ -8,6 +8,7 @@ import * as farm from '@moyuyc/worker-farm'
 import * as isEmp from 'lodash.isempty'
 import * as VError from 'verror'
 import * as cosconfig from 'cosmiconfig'
+import * as isPlainObj from 'is-plain-obj'
 import { single, default as quote } from 'quote-it'
 import { stringify, parse } from 'json-buffer'
 import { dirname } from 'path'
@@ -23,14 +24,19 @@ export type ProcessorCore = ProcessFunction | ProcessFunctions
 export type Processor = string | ProcessorCore | [string, any]
 type ComOptions = {
   parallel?: boolean
+  name?: string
 } & any
 export type Options = ComOptions & {
   cwd?: string
   userc?: boolean
 }
 
-export type RCOptions = ComOptions & {
-  processors: Processor[]
+export type InnerRCOptions = ComOptions & {
+  processors?: Processor[]
+}
+
+export type RCOptions = InnerRCOptions & {
+  [name: string]: InnerRCOptions
 }
 
 export const explorer = cosconfig(require('../package.json').name)
@@ -43,14 +49,21 @@ export default async function tranz(input: any, processors: Processor[] = [], op
     const { config, filepath, isEmpty } = (await explorer.search(processorCwd)) || ({} as any)
     if (!isEmpty && config) {
       const tConfig: RCOptions = { ...config }
+      let matchedRcConfig = tConfig
+      if (typeof opts.name === 'string' && tConfig.hasOwnProperty(opts.name) && isPlainObj(tConfig[opts.name])) {
+        let tmp = tConfig[opts.name]
+        delete tConfig[opts.name]
+        matchedRcConfig = { ...tConfig, ...tmp }
+      }
       if (isEmp(processors)) {
         processorCwd = dirname(filepath)
-        processors = tConfig.processors || []
+        processors = matchedRcConfig.processors || []
       }
-      delete tConfig.processors
-      delete (tConfig as any).userc
-      delete (tConfig as any).cwd
-      opts = { ...tConfig, ...opts }
+      delete matchedRcConfig.processors
+      delete (matchedRcConfig as any).userc
+      delete (matchedRcConfig as any).name
+      delete (matchedRcConfig as any).cwd
+      opts = { ...matchedRcConfig, ...opts }
     }
   }
 

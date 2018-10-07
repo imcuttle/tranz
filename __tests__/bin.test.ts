@@ -94,4 +94,16 @@ describe('tranz bin', function() {
       done()
     })
   })
+
+  it('--name', function(done) {
+    const textPath = nps.join(tmpdir(), 'text.txt')
+    fs.writeFileSync(textPath, 'foo')
+    cmd(`${textPath} --name=shell --no-parallel`, { cwd: fixture('multply-processors') }).end(function(err, { text }) {
+      if (err) {
+        return done(err)
+      }
+      expect(text).toBe('shell!!')
+      done()
+    })
+  })
 })
