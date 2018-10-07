@@ -181,14 +181,10 @@ module.exports = opts => [require('./upper')({}), [require.resolve('./trimLeft')
   {
     "tranz": {
       "foo": {
-        "processors": [
-          "echo foo"
-        ],
+        "processors": ["echo foo"],
         "parallel": true
-      }
-      "processors": [
-        "echo default"
-      ],
+      },
+      "processors": ["echo default"],
       "parallel": false
     }
   }
