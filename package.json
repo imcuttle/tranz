@@ -1,6 +1,6 @@
 {
   "name": "tranz",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "main": "lib/index.js",
   "description": "The framework for transform anything",
   "author": "imcuttle",

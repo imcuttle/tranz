@@ -1,3 +1,11 @@
+<a name="0.6.0"></a>
+
+# [0.6.0](https://github.com/imcuttle/tranz/compare/v0.5.0...v0.6.0) (2018-10-07)
+
+### Features
+
+- support multi-config in rc config ([c577732](https://github.com/imcuttle/tranz/commit/c577732))
+
 <a name="0.5.0"></a>
 
 # [0.5.0](https://github.com/imcuttle/tranz/compare/v0.4.3...v0.5.0) (2018-10-06)
