@@ -86,6 +86,8 @@ tranz(
     //      3. file named `.tranzrc.js`
     // Default: true
     userc: true
+    // It's useful about below multi-config
+    // name: 'foo'
   }
 ).then(output => {
   console.log(output)
