@@ -67,6 +67,7 @@
     "conventional-changelog-cli": "^2.0.5",
     "gentle-cli": "^1.0.3",
     "husky": "^1.0.1",
+    "is-ci": "^1.2.1",
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
     "pretty-quick": "^1.7.0",
