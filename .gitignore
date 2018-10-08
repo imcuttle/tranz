@@ -10,3 +10,4 @@ coverage/
 lib/
 .vscode
 !/__tests__/fixture/node_modules-path/node_modules/
+!/__tests__/fixture/multply-processors/node_modules/
