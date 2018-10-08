@@ -98,7 +98,7 @@ describe('tranz bin', function() {
 
   it('--name', function(done) {
     if (isCI) {
-      return
+      return done()
     }
     const textPath = nps.join(tmpdir(), 'text.txt')
     fs.writeFileSync(textPath, 'foo')
