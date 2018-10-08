@@ -280,7 +280,7 @@ describe('integration test', () => {
 
   it('should multply-processors with name', async function() {
     expect(await tranz('nihao', [], { name: 'shell', parallel: false, cwd: fixture('multply-processors') })).toBe(
-      'shell!!'
+      'shellxx'
     )
   })
 })

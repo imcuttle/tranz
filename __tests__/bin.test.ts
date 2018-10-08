@@ -102,7 +102,7 @@ describe('tranz bin', function() {
       if (err) {
         return done(err)
       }
-      expect(text).toBe('shell!!')
+      expect(text).toBe('shellxx')
       done()
     })
   })

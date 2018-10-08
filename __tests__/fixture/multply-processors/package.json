@@ -6,8 +6,8 @@
   "tranz": {
     "shell": {
       "processors": [
-        "echo shell!",
-        "echo shell!!"
+        "echo shellx",
+        "echo shellxx"
       ],
       "parallel": true
     },
