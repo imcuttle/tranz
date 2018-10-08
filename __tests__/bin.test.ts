@@ -8,6 +8,7 @@ const cli = require('gentle-cli')
 const execa = require('execa')
 const fs = require('fs')
 const { tmpdir } = require('os')
+const isCI = require('is-ci')
 
 const binPath = require.resolve('../bin')
 const fixture = (name = '') => nps.join(__dirname, 'fixture', name)
@@ -96,6 +97,9 @@ describe('tranz bin', function() {
   })
 
   it('--name', function(done) {
+    if (isCI) {
+      return
+    }
     const textPath = nps.join(tmpdir(), 'text.txt')
     fs.writeFileSync(textPath, 'foo')
     cmd(`${textPath} --name=shell --no-parallel`, { cwd: fixture('multply-processors') }).end(function(err, { text }) {
