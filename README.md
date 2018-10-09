@@ -6,6 +6,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/tranz.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/tranz)
 [![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://prettier.io/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square)](https://conventionalcommits.org)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fimcuttle%2Ftranz.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fimcuttle%2Ftranz?ref=badge_shield)
 
 The framework for transform anything
 
@@ -227,3 +228,6 @@ This library is written and maintained by imcuttle, <a href="mailto:moyuyc95@gma
 ## License
 
 MIT
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fimcuttle%2Ftranz.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fimcuttle%2Ftranz?ref=badge_large)
